@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Merit Mission</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #f0f8ff, #fdfd96);
+      margin: 0;
+      padding: 0;
+      background-image:libraries/pictures/image bg;
+      background-repeat: no-repeat;
+      background-size: cover;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      color: #FF4500;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+    .box {
+      margin: 20px auto;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      width: 90%;
+      max-width: 800px;
+    }
+    .motivational-quote {
+      font-style: italic;
+      color: #0066cc;
+      margin: 20px;
+      text-align: center;
+    }
+    .countdown {
+      font-size: 1.2rem;
+      text-align: center;
+      color: #FF6347;
+      margin: 10px;
+    }
+    .btn {
+      display: inline-block;
+      margin: 10px;
+      padding: 10px 20px;
+      color: #fff;
+      background-color: #FFA500;
+      text-decoration: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background-color: #FF6347;
+    }
+    .poll {
+      margin: 20px;
+      padding: 10px;
+      background: #FFF8DC;
+      border-radius: 10px;
+      text-align: center;
+    }
+    .ranks {
+      text-align: center;
+      margin: 20px;
+    }
+    .medals {
+      font-size: 2rem;
+    }
+    .to-do-list {
+      margin: 20px auto;
+      padding: 10px;
+      border: 1px solid #FFA500;
+      border-radius: 10px;
+      max-width: 500px;
+      background: #FFF8E1;
+    }
+    .to-do-list input {
+      width: 80%;
+      padding: 5px;
+      margin: 5px 0;
+    }
+    .to-do-list button {
+      padding: 5px 10px;
+      background: #FF6347;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .to-do-list button:hover {
+      background: #FF4500;
+    }
+    .poll-results {
+      display: none;
+      margin-top: 10px;
+      color: #4CAF50;
+    }
+  </style>
+</head>
+<body>
+  <h1>Mission Merit 10-B</h1>
+  <div class="box">
+    <p class="motivational-quote">"Success is the sum of small efforts, repeated day in and day out."</p>
+    <p class="countdown" id="boardCountdown">Board Exam Countdown: </p>
+    <a class="btn" href="#tapasya">Tapasya Mode</a>
+    <a class="btn" href="#maths">Maths Questions</a>
+    <a class="btn" href="#test">Test Section</a>
+    <a class="btn" href="#poll">Daily Poll</a>
+  </div>
+
+  <div class="box ranks">
+    <h2>Rank of the Week</h2>
+    <p>1. <strong>Ali Sheikh</strong> <span class="GOLD">??</span></p>
+    <p>2. <strong>Sahil Jaiswal</strong> <span class="SILVER">??</span></p>
+    <p>3. <strong>Anvesha Gupta</strong> <span class="BRONZE">??</span></p>
+  </div>
+
+  <div class="to-do-list">
+    <h2>To-Do List</h2>
+    <input type="text" id="taskInput" placeholder="Add a task">
+    <button onclick="addTask()">Add Task</button>
+    <ul id="taskList"></ul>
+    <p id="completionRate"></p>
+  </div>
+
+  <div class="poll" id="poll">
+    <h2>Daily Poll</h2>
+    <p>What is your favorite subject?</p>
+    <button onclick="vote('Maths')">Maths</button>
+    <button onclick="vote('Science')">Science</button>
+    <button onclick="vote('English')">English</button>
+    <div id="pollResults" class="poll-results"></div>
+  </div>
+
+  <script>
+    // Countdown Timer
+    function updateCountdown() {
+      const boardExamDate = new Date('2025-02-15T00:00:00');
+      const now = new Date();
+      const diff = boardExamDate - now;
+
+      const months = Math.floor(diff / (1000 * 60 * 60 * 24 * 30));
+      const days = Math.floor((diff % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+      document.getElementById('boardCountdown').innerText =
+        `Board Exam Countdown: ${months} months, ${days} days, ${hours} hours, ${minutes} minutes`;
+    }
+    setInterval(updateCountdown, 60000);
+    updateCountdown();
+
+    // To-Do List
+    const tasks = [];
+    function addTask() {
+      const taskInput = document.getElementById('taskInput').value;
+      if (taskInput) {
+        tasks.push({ task: taskInput, completed: false });
+        renderTasks();
+        document.getElementById('taskInput').value = '';
+      }
+    }
+    function toggleTask(index) {
+      tasks[index].completed = !tasks[index].completed;
+      renderTasks();
+    }
+    function renderTasks() {
+      const taskList = document.getElementById('taskList');
+      taskList.innerHTML = '';
+      let completedCount = 0;
+      tasks.forEach((t, i) => {
+        if (t.completed) completedCount++;
+        const li = document.createElement('li');
+        li.innerHTML = `<input type="checkbox" ${t.completed ? 'checked' : ''} onclick="toggleTask(${i})"> ${t.task}`;
+        taskList.appendChild(li);
+      });
+      document.getElementById('completionRate').innerText = `Completion Rate: ${((completedCount / tasks.length) * 100).toFixed(2)}%`;
+    }
+
+    // Poll
+    let pollVotes = { Maths: 0, Science: 0, English: 0 };
+    function vote(subject) {
+      pollVotes[subject]++;
+      document.getElementById('pollResults').style.display = 'block';
+      document.getElementById('pollResults').innerText = `Maths: ${pollVotes.Maths}, Science: ${pollVotes.Science}, English: ${pollVotes.English}`;
+    }
+  </script>
+</body>
+</html>
