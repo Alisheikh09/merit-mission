@@ -1,0 +1,112 @@
+/* Animations and Button Styling */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom right, #f9f9f9, #e8f3ff);
+    animation: fadeIn 1.5s ease-in-out;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    text-align: center;
+    color: #ff6f00;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+button {
+    background: #ff6f00;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.3s;
+}
+
+button:hover {
+    background: #ff8c1a;
+    transform: scale(1.1);
+}
+
+/* Loading Animation */
+.loading-spinner {
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #3498db;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Medal Styling */
+.rank-medals {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.rank-medals .medal {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    color: white;
+    text-align: center;
+    line-height: 80px;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0 10px;
+}
+
+.medal.gold {
+    background: gold;
+}
+
+.medal.silver {
+    background: silver;
+}
+
+.medal.bronze {
+    background: #cd7f32;
+}
+
+/* Task Completion Bar */
+.progress-bar {
+    height: 20px;
+    width: 100%;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 10px 0;
+}
+
+.progress-bar .progress {
+    height: 100%;
+    width: 0%;
+    background-color: #76c7c0;
+    text-align: center;
+    color: white;
+    line-height: 20px;
+    border-radius: 10px 0 0 10px;
+}
